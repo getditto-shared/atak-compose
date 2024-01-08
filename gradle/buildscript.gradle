@@ -1,0 +1,19 @@
+ext.buildscriptRespositories = { scope ->
+    scope.repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+}
+
+ext.buildscriptDependencies = { scope ->
+    scope.dependencies {
+        classpath libs.com.android.tools.build.gradle
+    }
+}

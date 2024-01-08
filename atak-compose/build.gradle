@@ -1,0 +1,50 @@
+buildscript {
+    apply from: "$rootDir/gradle/buildscript.gradle"
+    apply from: "$rootDir/gradle/atak-buildscript.gradle"
+
+    ext.buildscriptRespositories{}
+    ext.atakBuildscriptRespositories{}
+    ext.buildscriptDependencies{}
+    ext.atakBuildscriptDependencies{}
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'atak-takdev-plugin'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply from: "$rootDir/gradle/android.gradle"
+
+android {
+    namespace 'com.dittofederal.atak.compose'
+
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles "$rootDir/gradle/proguard-gradle.txt", "$rootDir/app/proguard-gradle-repackage.txt"
+        }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+    composeOptions.kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+}
+
+dependencies {
+    androidTestImplementation libs.androidx.test.ext.junit
+
+    implementation libs.androidx.compose.ui.ui
+    implementation libs.androidx.lifecycle.lifecycleViewmodelCompose
+
+    implementation platform(libs.androidx.compose.composeBom)
+
+    testImplementation libs.junit.junit
+}
+
+afterEvaluate {
+    project.file("proguard-gradle-repackage.txt").text = "-repackageclasses atakplugin.${rootProject.getName()}"
+}

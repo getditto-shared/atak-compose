@@ -31,9 +31,35 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import java.io.Closeable
+import kotlin.coroutines.CoroutineContext
+
+/**
+ * An alias to workaround issues resolving `viewModelScope`
+ */
+open class AtakViewModel : ViewModel() {
+    /**
+     * [CoroutineScope] tied to this [ViewModel].
+     * This scope will be canceled when ViewModel will be cleared, i.e [ViewModel.onCleared] is called
+     *
+     * This scope is bound to
+     * [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate]
+     */
+    val viewModelScope: CoroutineScope = CloseableCoroutineScope(
+        context = SupervisorJob() + Dispatchers.Main.immediate
+    )
+
+    init {
+        this.addCloseable(viewModelScope as Closeable)
+    }
+}
 
 @Composable
-inline fun <reified T : ViewModel> atakViewModel(
+inline fun <reified T : AtakViewModel> atakViewModel(
     key: String? = null,
     crossinline viewModelInstanceCreator: () -> T
 ): T {
@@ -71,4 +97,12 @@ inline fun <reified T : ViewModel> atakViewModel(
     )
 
     return vm
+}
+
+internal class CloseableCoroutineScope(context: CoroutineContext) : Closeable, CoroutineScope {
+    override val coroutineContext: CoroutineContext = context
+
+    override fun close() {
+        coroutineContext.cancel()
+    }
 }

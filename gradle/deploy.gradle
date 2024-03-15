@@ -56,8 +56,8 @@ afterEvaluate {
                     }
 
                     scm {
-                        connection = 'scm:git:github.com/getditto-federal/atak-compose.git'
-                        developerConnection = 'scm:git:ssh://github.com/getditto-federal/atak-compose.git'
+                        connection = 'scm:git:github.com/getditto-shared/atak-compose.git'
+                        developerConnection = 'scm:git:ssh://github.com/getditto-shared/atak-compose.git'
                         url = 'https://dittofederal.com'
                     }
 

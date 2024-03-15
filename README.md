@@ -32,6 +32,9 @@ com-dittofederal-atak-compose = "0.0.4"
 com-dittofederal-atakCompose = { group = "com.dittofederal", name = "atak-compose", version.ref = "com-dittofederal-atak-compose" }
 ```
 
+This library uses the same `local.properties` configuration used by ATAK plugins e.g. to find the
+ATAK SDK at build-time
+
 ## Collaboration
 PR's will be accepted for bug fixes and feature additions to the extent they are generally useful
 to ATAK plugin developers using Compose

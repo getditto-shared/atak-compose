@@ -1,7 +1,7 @@
-## atak-compose
+# atak-compose
 
-# Overview
-atak-compose is an Android library to ease use of Jetpack Compose within an ATAK plugin
+## Overview
+**atak-compose** is an Android library to ease use of Jetpack Compose within an ATAK plugin
 
 Provides 
 - `ComposeContext` to manage the ATAK and plugin `Context`
@@ -9,9 +9,13 @@ Provides
 - a ComposePane to wrap ATAK's `gov.tak.api.ui.Pane` and set the `ViewCompositionStrategy`
 - ATAK navigation idiomatic with Jetpack Navigation
 
-For sample usage, refer to Ditto's helloworld-MAD
+## Sample
+
+For sample usage, refer to Ditto's helloworld-MAD sample ATAK plugin
 https://git.tak.gov/ditto-samples/helloworld-mad
 
+
+## Usage
 ```
 repositories {
     mavenCentral()
@@ -28,8 +32,8 @@ com-dittofederal-atak-compose = "0.0.4"
 com-dittofederal-atakCompose = { group = "com.dittofederal", name = "atak-compose", version.ref = "com-dittofederal-atak-compose" }
 ```
 
-# Collaboration
+## Collaboration
 PR's will be accepted for bug fixes and feature additions to the extent they are generally useful
 to ATAK plugin developers using Compose
 
-DittoLive manages the atak-compose library in Maven Central
+DittoLive manages the **atak-compose** library in Maven Central
